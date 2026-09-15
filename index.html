@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esenyurt Görüyor Soruyor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>ESENYURT</h1>
+  <p>Görüyor • Soruyor</p>
+</header>
+
+<main>
+  <h2>Gördüğünü paylaş, merak ettiğini sor.</h2>
+
+  <select id="mahalle">
+    <option>Tüm Esenyurt</option>
+    <option>Mehterçeşme</option>
+    <option>Saadetdere</option>
+    <option>İncirtepe</option>
+    <option>Talatpaşa</option>
+    <option>Bağlarçeşme</option>
+  </select>
+
+  <div class="tabs">
+    <button>🔥 Gündem</button>
+    <button>👁️ Görüyor</button>
+    <button>❓ Soruyor</button>
+  </div>
+
+  <section class="paylas">
+    <h2>Paylaşım Yap</h2>
+
+    <textarea id="mesaj"
+      placeholder="Ne paylaşmak istiyorsun?"></textarea>
+
+    <select id="paylasimMahalle">
+      <option>Mehterçeşme</option>
+      <option>Saadetdere</option>
+      <option>İncirtepe</option>
+      <option>Talatpaşa</option>
+      <option>Bağlarçeşme</option>
+    </select>
+
+    <button onclick="paylas()">Anonim Paylaş</button>
+  </section>
+
+  <div id="paylasimlar"></div>
+
+</main>
+
+<nav>
+  <span>🏠 Ana Sayfa</span>
+  <span>📍 Mahalleler</span>
+  <span>📊 Anketler</span>
+  <span>🏪 Esnaflar</span>
+</nav>
+
+<script src="app.js"></script>
+
+</body>
+</html>
