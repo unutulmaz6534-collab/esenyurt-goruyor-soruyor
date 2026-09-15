@@ -3,64 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Esenyurt Görüyor Soruyor</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="stil.css">
 </head>
 
 <body>
 
 <header>
-  <h1>ESENYURT</h1>
-  <p>Görüyor • Soruyor</p>
+  <h1>📍 Esenyurt Görüyor Soruyor</h1>
+  <p>Gördüğünü paylaş, merak ettiğini sor.</p>
 </header>
 
-<main>
-  <h2>Gördüğünü paylaş, merak ettiğini sor.</h2>
+<div class="container">
 
-  <select id="mahalle">
+  <select id="ilce">
     <option>Tüm Esenyurt</option>
     <option>Mehterçeşme</option>
     <option>Saadetdere</option>
     <option>İncirtepe</option>
     <option>Talatpaşa</option>
     <option>Bağlarçeşme</option>
+    <option>Pınar</option>
   </select>
 
-  <div class="tabs">
-    <button>🔥 Gündem</button>
-    <button>👁️ Görüyor</button>
-    <button>❓ Soruyor</button>
-  </div>
+  <nav>
+    <button onclick="sekme('gundem')">🔥 Gündem</button>
+    <button onclick="sekme('goruyor')">👁 Görüyor</button>
+    <button onclick="sekme('soruyor')">❓ Soruyor</button>
+  </nav>
 
-  <section class="paylas">
-    <h2>Paylaşım Yap</h2>
+  <div class="card">
 
-    <textarea id="mesaj"
+    <h2>✍️ Paylaşım Yap</h2>
+
+    <select id="tur">
+      <option value="goruyor">👁 Görüyor</option>
+      <option value="soruyor">❓ Soruyor</option>
+    </select>
+
+    <textarea
+      id="mesaj"
       placeholder="Ne paylaşmak istiyorsun?"></textarea>
 
-    <select id="paylasimMahalle">
+    <select id="mahalle">
       <option>Mehterçeşme</option>
       <option>Saadetdere</option>
       <option>İncirtepe</option>
       <option>Talatpaşa</option>
       <option>Bağlarçeşme</option>
+      <option>Pınar</option>
     </select>
 
-    <button onclick="paylas()">Anonim Paylaş</button>
-  </section>
+    <button onclick="paylas()">
+      Anonim Paylaş
+    </button>
 
-  <div id="paylasimlar"></div>
+  </div>
 
-</main>
+  <div id="paylasimlar">
 
-<nav>
-  <span>🏠 Ana Sayfa</span>
-  <span>📍 Mahalleler</span>
-  <span>📊 Anketler</span>
-  <span>🏪 Esnaflar</span>
-</nav>
+    <div class="post">
+      <strong>👁 Görüyor • Esenyurt</strong>
 
-<script src="app.js"></script>
+      <p>
+        Esenyurt'ta gördüklerini burada paylaşabilirsin.
+      </p>
+    </div>
+
+    <div class="post">
+      <strong>❓ Soruyor • Esenyurt</strong>
+
+      <p>
+        Mahallen hakkında merak ettiklerini sor.
+      </p>
+    </div>
+
+  </div>
+
+  <p>
+    🛡️ Kişisel bilgi, hakaret veya hedef gösterme
+    içeren paylaşımlar kaldırılabilir.
+  </p>
+
+</div>
+
+<div class="bottom-nav">
+  <a href="#">🏠<br>Ana Sayfa</a>
+  <a href="#">📍<br>Mahalleler</a>
+  <a href="#">📊<br>Anketler</a>
+  <a href="#">🏪<br>Esnaflar</a>
+</div>
+
+<script>
+
+function paylas() {
+
+  const mesaj =
+    document.getElementById("mesaj").value.trim();
+
+  const mahalle =
+    document.getElementById("mahalle").value;
+
+  const tur =
+    document.getElementById("tur").value;
+
+  if (mesaj === "") {
+    alert("Lütfen bir şey yaz.");
+    return;
+  }
+
+  const ikon =
+    tur === "goruyor" ? "👁 Görüyor" : "❓ Soruyor";
+
+  const yeni =
+    document.createElement("div");
+
+  yeni.className = "post";
+
+  const baslik =
+    document.createElement("strong");
+
+  baslik.textContent =
+    ikon + " • " + mahalle;
+
+  const yazi =
+    document.createElement("p");
+
+  yazi.textContent = mesaj;
+
+  yeni.appendChild(baslik);
+  yeni.appendChild(yazi);
+
+  const alan =
+    document.getElementById("paylasimlar");
+
+  alan.prepend(yeni);
+
+  document.getElementById("mesaj").value = "";
+}
+
+function sekme(ad) {
+
+  if (ad === "gundem") {
+    alert("🔥 Gündem");
+  }
+
+  if (ad === "goruyor") {
+    alert("👁 Görüyor");
+  }
+
+  if (ad === "soruyor") {
+    alert("❓ Soruyor");
+  }
+}
+
+</script>
 
 </body>
 </html>
