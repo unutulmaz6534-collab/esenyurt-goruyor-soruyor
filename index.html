@@ -1,18 +1,183 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esenyurt Görüyor Soruyor</title>
 
-  <title>Esenyurt Görüyor Soruyor</title>
+<style>
+* {
+  box-sizing: border-box;
+}
 
-  <link rel="stylesheet" href="stil.css">
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #202124;
+}
+
+header {
+  background: linear-gradient(135deg, #ef3038, #ff6845);
+  color: white;
+  text-align: center;
+  padding: 35px 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+header p {
+  font-size: 18px;
+  opacity: .95;
+}
+
+nav {
+  background: white;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 22px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+nav a {
+  text-decoration: none;
+  color: #292929;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+main {
+  max-width: 750px;
+  margin: auto;
+  padding: 25px 15px;
+}
+
+.card {
+  background: white;
+  padding: 28px;
+  border-radius: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.08);
+}
+
+.hero {
+  text-align: center;
+  padding: 45px 25px;
+}
+
+.hero h2 {
+  font-size: 34px;
+  margin-top: 0;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #666;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+select,
+textarea,
+button {
+  width: 100%;
+  font-size: 17px;
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+select,
+textarea {
+  border: 1px solid #ccc;
+  background: #fafafa;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  border: none;
+  background: #ef3438;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+.post {
+  background: #f5f6f8;
+  border-radius: 15px;
+  padding: 16px;
+  margin-top: 15px;
+  border-left: 5px solid #ef3438;
+}
+
+.post strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.post small {
+  color: #777;
+}
+
+.mahalleler {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+}
+
+.mahalle {
+  background: #f5f6f8;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #202124;
+  color: white;
+}
+
+@media(max-width:600px) {
+  header h1 {
+    font-size: 28px;
+  }
+
+  .hero h2 {
+    font-size: 30px;
+  }
+
+  .card {
+    padding: 22px;
+  }
+
+  .mahalleler {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">📍 ESENYURT GÖRÜYOR SORUYOR</div>
+  <h1>📍 ESENYURT GÖRÜYOR SORUYOR</h1>
   <p>Esenyurt'un dijital mahalle platformu</p>
 </header>
 
@@ -25,250 +190,145 @@
 
 <main>
 
-  <section class="hero" id="ana">
-    <h1>Esenyurt'ta ne oluyor?</h1>
+<section class="card hero" id="ana">
+  <h2>Esenyurt'ta ne oluyor?</h2>
+  <p>
+    Gördüğünü paylaş, merak ettiğini sor.<br>
+    Mahallenden haberdar ol.
+  </p>
+  <button onclick="document.getElementById('goruyor').scrollIntoView({behavior:'smooth'})">
+    Paylaşım Yap
+  </button>
+</section>
 
-    <p>
-      Gördüğünü paylaş, merak ettiğini sor.<br>
-      Mahallenden haberdar ol.
-    </p>
+<section class="card" id="goruyor">
+  <h2>👁️ Görüyor</h2>
+  <p>Esenyurt'ta gördüğün bir gelişmeyi paylaş.</p>
 
-    <a class="btn" href="#goruyor">Paylaşım Yap</a>
-  </section>
+  <select id="mahalle">
+    <option value="">Mahalleni seç</option>
+    <option>Mehterçeşme</option>
+    <option>Saadetdere</option>
+    <option>İncirtepe</option>
+    <option>Talatpaşa</option>
+    <option>Bağlarçeşme</option>
+    <option>Esenkent</option>
+  </select>
 
+  <textarea id="paylasim"
+    placeholder="Ne gördün? Buraya yaz..."></textarea>
 
-  <section class="card" id="goruyor">
+  <button onclick="paylas()">Anonim Paylaş</button>
+</section>
 
-    <h2>👁️ Görüyor</h2>
+<section class="card" id="soruyor">
+  <h2>❓ Soruyor</h2>
+  <p>Mahallen hakkında merak ettiğin bir şeyi sor.</p>
 
-    <p>Esenyurt'ta gördüğün bir gelişmeyi paylaş.</p>
+  <textarea id="soru"
+    placeholder="Sorunu buraya yaz..."></textarea>
 
-    <select id="mahalle">
-      <option value="">Mahalleni seç</option>
-      <option>Mehterçeşme</option>
-      <option>Saadetdere</option>
-      <option>İncirtepe</option>
-      <option>Talatpaşa</option>
-      <option>Bağlarçeşme</option>
-      <option>Esenkent</option>
-    </select>
+  <button onclick="soruSor()">Soru Sor</button>
+</section>
 
-    <textarea
-      id="paylasim"
-      placeholder="Ne gördün? Buraya yaz..."
-    ></textarea>
+<section class="card">
+  <h2>🔥 Son Paylaşımlar</h2>
+  <div id="paylasimlar">
+    <p>Henüz paylaşım yok. İlk paylaşımı sen yap!</p>
+  </div>
+</section>
 
-    <button id="paylasBtn">Anonim Paylaş</button>
+<section class="card" id="mahalleler">
+  <h2>🏙️ Mahalleler</h2>
 
-  </section>
-
-
-  <section class="card" id="soruyor">
-
-    <h2>❓ Soruyor</h2>
-
-    <p>Mahallen hakkında merak ettiğin bir şeyi sor.</p>
-
-    <textarea
-      id="soru"
-      placeholder="Sorunu buraya yaz..."
-    ></textarea>
-
-    <button id="soruBtn">Soru Sor</button>
-
-  </section>
-
-
-  <section class="card">
-
-    <h2>🔥 Son Paylaşımlar</h2>
-
-    <div id="akis">
-      <p id="bosMesaj">
-        Henüz paylaşım yok. İlk paylaşımı sen yap.
-      </p>
-    </div>
-
-  </section>
-
-
-  <section class="card" id="mahalleler">
-
-    <h2>🏙️ Mahalleler</h2>
-
+  <div class="mahalleler">
     <div class="mahalle">📍 Mehterçeşme</div>
     <div class="mahalle">📍 Saadetdere</div>
     <div class="mahalle">📍 İncirtepe</div>
     <div class="mahalle">📍 Talatpaşa</div>
     <div class="mahalle">📍 Bağlarçeşme</div>
     <div class="mahalle">📍 Esenkent</div>
-
-  </section>
+  </div>
+</section>
 
 </main>
-
 
 <footer>
   <strong>📍 Esenyurt Görüyor Soruyor</strong>
   <p>Gör • Sor • Paylaş</p>
 </footer>
 
-
 <script>
+function ekranaEkle(tur, mahalle, yazi) {
+  const alan = document.getElementById("paylasimlar");
 
-const paylasBtn = document.getElementById("paylasBtn");
-const soruBtn = document.getElementById("soruBtn");
-
-const paylasimKutusu = document.getElementById("paylasim");
-const soruKutusu = document.getElementById("soru");
-
-const mahalleSecimi = document.getElementById("mahalle");
-const akis = document.getElementById("akis");
-
-
-let paylasimlar =
-  JSON.parse(localStorage.getItem("esenyurtPaylasimlari")) || [];
-
-
-function guvenliYazi(metin) {
-
-  const div = document.createElement("div");
-
-  div.textContent = metin;
-
-  return div.innerHTML;
-}
-
-
-function paylasimlariGoster() {
-
-  akis.innerHTML = "";
-
-  if (paylasimlar.length === 0) {
-
-    akis.innerHTML =
-      "<p>Henüz paylaşım yok. İlk paylaşımı sen yap.</p>";
-
-    return;
+  if (alan.innerText.includes("Henüz paylaşım yok")) {
+    alan.innerHTML = "";
   }
 
+  const post = document.createElement("div");
+  post.className = "post";
 
-  paylasimlar
-    .slice()
-    .reverse()
-    .forEach(function(item) {
+  const baslik = document.createElement("strong");
+  baslik.textContent =
+    (tur === "Görüyor" ? "👁️ " : "❓ ") +
+    tur + " • " + mahalle;
 
-      const kart = document.createElement("div");
+  const metin = document.createElement("p");
+  metin.textContent = yazi;
 
-      kart.className = "post";
+  const tarih = document.createElement("small");
+  tarih.textContent =
+    new Date().toLocaleString("tr-TR");
 
-      kart.innerHTML = `
-        <strong>
-          ${item.tip} • ${guvenliYazi(item.mahalle)}
-        </strong>
+  post.appendChild(baslik);
+  post.appendChild(metin);
+  post.appendChild(tarih);
 
-        <p>
-          ${guvenliYazi(item.yazi)}
-        </p>
-
-        <small>
-          ${guvenliYazi(item.tarih)}
-        </small>
-      `;
-
-      akis.appendChild(kart);
-
-    });
-
+  alan.prepend(post);
 }
 
-
-paylasBtn.addEventListener("click", function() {
-
-  const yazi = paylasimKutusu.value.trim();
-
+function paylas() {
   const mahalle =
-    mahalleSecimi.value || "Esenyurt";
+    document.getElementById("mahalle").value;
 
+  const kutu =
+    document.getElementById("paylasim");
 
-  if (yazi === "") {
+  const yazi = kutu.value.trim();
 
+  if (!mahalle) {
+    alert("Önce mahalleni seç.");
+    return;
+  }
+
+  if (!yazi) {
     alert("Önce paylaşımını yaz.");
-
     return;
   }
 
+  ekranaEkle("Görüyor", mahalle, yazi);
 
-  paylasimlar.push({
-
-    tip: "👁️ Görüyor",
-
-    mahalle: mahalle,
-
-    yazi: yazi,
-
-    tarih: new Date().toLocaleString("tr-TR")
-
-  });
-
-
-  localStorage.setItem(
-    "esenyurtPaylasimlari",
-    JSON.stringify(paylasimlar)
-  );
-
-
-  paylasimKutusu.value = "";
-
-  paylasimlariGoster();
-
+  kutu.value = "";
   alert("✅ Paylaşımın yayınlandı!");
+}
 
-});
+function soruSor() {
+  const kutu =
+    document.getElementById("soru");
 
+  const yazi = kutu.value.trim();
 
-soruBtn.addEventListener("click", function() {
-
-  const yazi = soruKutusu.value.trim();
-
-  if (yazi === "") {
-
+  if (!yazi) {
     alert("Önce sorunu yaz.");
-
     return;
   }
 
+  ekranaEkle("Soruyor", "Esenyurt", yazi);
 
-  paylasimlar.push({
-
-    tip: "❓ Soruyor",
-
-    mahalle: "Esenyurt",
-
-    yazi: yazi,
-
-    tarih: new Date().toLocaleString("tr-TR")
-
-  });
-
-
-  localStorage.setItem(
-    "esenyurtPaylasimlari",
-    JSON.stringify(paylasimlar)
-  );
-
-
-  soruKutusu.value = "";
-
-  paylasimlariGoster();
-
+  kutu.value = "";
   alert("✅ Sorun yayınlandı!");
-
-});
-
-
-paylasimlariGoster();
-
+}
 </script>
 
 </body>
