@@ -3,162 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Esenyurt Görüyor Soruyor</title>
-
   <link rel="stylesheet" href="stil.css">
 </head>
 
 <body>
 
 <header>
-  <h1>📍 Esenyurt Görüyor Soruyor</h1>
-  <p>Gördüğünü paylaş, merak ettiğini sor.</p>
+  <div class="logo">📍 Esenyurt <span>Görüyor Soruyor</span></div>
+  <p>Esenyurt'un dijital mahalle platformu</p>
 </header>
 
-<div class="container">
+<nav>
+  <a href="#anasayfa">🏠 Ana Sayfa</a>
+  <a href="#paylas">👁️ Görüyor</a>
+  <a href="#soruyor">❓ Soruyor</a>
+  <a href="#mahalleler">🏙️ Mahalleler</a>
+</nav>
 
-  <select id="ilce">
-    <option>Tüm Esenyurt</option>
-    <option>Mehterçeşme</option>
-    <option>Saadetdere</option>
-    <option>İncirtepe</option>
-    <option>Talatpaşa</option>
-    <option>Bağlarçeşme</option>
-    <option>Pınar</option>
-  </select>
+<main id="anasayfa">
 
-  <nav>
-    <button onclick="sekme('gundem')">🔥 Gündem</button>
-    <button onclick="sekme('goruyor')">👁 Görüyor</button>
-    <button onclick="sekme('soruyor')">❓ Soruyor</button>
-  </nav>
+  <section class="hero">
+    <h1>Esenyurt'ta ne oluyor?</h1>
+    <p>Gördüğünü paylaş, merak ettiğini sor. Mahallenden haberdar ol.</p>
+    <a class="buton" href="#paylas">Paylaşım Yap</a>
+  </section>
 
-  <div class="card">
+  <section id="paylas" class="kart">
+    <h2>👁️ Görüyor</h2>
+    <p>Esenyurt'ta gördüğün bir gelişmeyi paylaş.</p>
 
-    <h2>✍️ Paylaşım Yap</h2>
-
-    <select id="tur">
-      <option value="goruyor">👁 Görüyor</option>
-      <option value="soruyor">❓ Soruyor</option>
-    </select>
-
-    <textarea
-      id="mesaj"
-      placeholder="Ne paylaşmak istiyorsun?"></textarea>
-
-    <select id="mahalle">
+    <select>
+      <option>Mahalle seç</option>
       <option>Mehterçeşme</option>
       <option>Saadetdere</option>
       <option>İncirtepe</option>
       <option>Talatpaşa</option>
       <option>Bağlarçeşme</option>
-      <option>Pınar</option>
     </select>
 
-    <button onclick="paylas()">
-      Anonim Paylaş
-    </button>
+    <textarea placeholder="Ne gördün? Buraya yaz..."></textarea>
 
-  </div>
+    <button onclick="paylas()">Anonim Paylaş</button>
+  </section>
 
-  <div id="paylasimlar">
+  <section id="soruyor" class="kart">
+    <h2>❓ Soruyor</h2>
+    <p>Mahallen hakkında merak ettiğin bir şeyi sor.</p>
 
-    <div class="post">
-      <strong>👁 Görüyor • Esenyurt</strong>
+    <textarea placeholder="Sorunu buraya yaz..."></textarea>
+    <button onclick="alert('Sorun alındı!')">Soru Sor</button>
+  </section>
 
-      <p>
-        Esenyurt'ta gördüklerini burada paylaşabilirsin.
-      </p>
+  <section id="mahalleler" class="kart">
+    <h2>🏙️ Mahalleler</h2>
+
+    <div class="mahalleler">
+      <div>📍 Mehterçeşme</div>
+      <div>📍 Saadetdere</div>
+      <div>📍 İncirtepe</div>
+      <div>📍 Talatpaşa</div>
+      <div>📍 Bağlarçeşme</div>
+      <div>📍 Esenkent</div>
+    </div>
+  </section>
+
+  <section class="kart">
+    <h2>🔥 Gündem</h2>
+
+    <div class="gonderi">
+      <strong>👁️ Görüyor • Esenyurt</strong>
+      <p>Esenyurt'ta gördüklerini burada paylaşabilirsin.</p>
     </div>
 
-    <div class="post">
+    <div class="gonderi">
       <strong>❓ Soruyor • Esenyurt</strong>
-
-      <p>
-        Mahallen hakkında merak ettiklerini sor.
-      </p>
+      <p>Mahallendeki konular hakkında soru sorabilirsin.</p>
     </div>
+  </section>
 
-  </div>
+</main>
 
-  <p>
-    🛡️ Kişisel bilgi, hakaret veya hedef gösterme
-    içeren paylaşımlar kaldırılabilir.
-  </p>
-
-</div>
-
-<div class="bottom-nav">
-  <a href="#">🏠<br>Ana Sayfa</a>
-  <a href="#">📍<br>Mahalleler</a>
-  <a href="#">📊<br>Anketler</a>
-  <a href="#">🏪<br>Esnaflar</a>
-</div>
+<footer>
+  <strong>📍 Esenyurt Görüyor Soruyor</strong>
+  <p>Mahallenden haberdar ol.</p>
+</footer>
 
 <script>
-
 function paylas() {
-
-  const mesaj =
-    document.getElementById("mesaj").value.trim();
-
-  const mahalle =
-    document.getElementById("mahalle").value;
-
-  const tur =
-    document.getElementById("tur").value;
-
-  if (mesaj === "") {
-    alert("Lütfen bir şey yaz.");
-    return;
-  }
-
-  const ikon =
-    tur === "goruyor" ? "👁 Görüyor" : "❓ Soruyor";
-
-  const yeni =
-    document.createElement("div");
-
-  yeni.className = "post";
-
-  const baslik =
-    document.createElement("strong");
-
-  baslik.textContent =
-    ikon + " • " + mahalle;
-
-  const yazi =
-    document.createElement("p");
-
-  yazi.textContent = mesaj;
-
-  yeni.appendChild(baslik);
-  yeni.appendChild(yazi);
-
-  const alan =
-    document.getElementById("paylasimlar");
-
-  alan.prepend(yeni);
-
-  document.getElementById("mesaj").value = "";
+  alert("Paylaşımın alındı!");
 }
-
-function sekme(ad) {
-
-  if (ad === "gundem") {
-    alert("🔥 Gündem");
-  }
-
-  if (ad === "goruyor") {
-    alert("👁 Görüyor");
-  }
-
-  if (ad === "soruyor") {
-    alert("❓ Soruyor");
-  }
-}
-
 </script>
 
 </body>
