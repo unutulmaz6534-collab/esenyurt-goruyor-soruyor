@@ -1,223 +1,308 @@
+/* ESENYURT GÖRÜYOR SORUYOR */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  color: #202124;
-  line-height: 1.6;
+html {
+  scroll-behavior: smooth;
 }
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+  color: #202124;
+  line-height: 1.5;
+}
+
+
+/* ÜST BAŞLIK */
+
 header {
-  background: linear-gradient(135deg, #e53935, #ff7043);
+  background: linear-gradient(135deg, #ef3038, #ff6845);
   color: white;
   text-align: center;
-  padding: 35px 20px;
+  padding: 38px 20px;
 }
 
 .logo {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.logo span {
-  color: #fff3e0;
+  font-size: 29px;
+  font-weight: 800;
+  line-height: 1.25;
 }
 
 header p {
-  margin-top: 8px;
-  font-size: 15px;
+  margin-top: 12px;
+  font-size: 18px;
+  opacity: 0.95;
 }
+
+
+/* MENÜ */
 
 nav {
   background: white;
-  padding: 14px 10px;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
   flex-wrap: wrap;
+  gap: 12px;
+  padding: 18px 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
   position: sticky;
   top: 0;
-  z-index: 10;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  z-index: 100;
 }
 
 nav a {
-  color: #333;
+  color: #292929;
   text-decoration: none;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 9px 10px;
+  border-radius: 10px;
 }
 
 nav a:hover {
   background: #f1f1f1;
-  color: #e53935;
 }
 
+
+/* ANA İÇERİK */
+
 main {
-  max-width: 850px;
-  margin: auto;
-  padding: 20px;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 25px 15px 50px;
+}
+
+
+/* KARTLAR */
+
+.hero,
+.card {
+  background: white;
+  border-radius: 25px;
+  padding: 30px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
 .hero {
-  background: white;
-  border-radius: 18px;
-  padding: 35px 22px;
-  margin-bottom: 20px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  padding-top: 45px;
+  padding-bottom: 45px;
 }
 
 .hero h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
+  font-size: 34px;
+  line-height: 1.15;
+  margin-bottom: 16px;
 }
 
 .hero p {
   color: #666;
-  margin-bottom: 25px;
+  font-size: 19px;
+  margin-bottom: 28px;
 }
 
-.buton,
+.card h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.card > p {
+  color: #666;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+
+/* KIRMIZI BUTON */
+
+.btn,
 button {
   display: inline-block;
-  background: #e53935;
+  border: 0;
+  background: #ef3438;
   color: white;
-  border: none;
-  padding: 13px 22px;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 15px 24px;
+  border-radius: 13px;
   text-decoration: none;
+  cursor: pointer;
 }
 
-button:hover,
-.buton:hover {
-  background: #c62828;
+.btn:hover,
+button:hover {
+  opacity: 0.9;
 }
 
-.kart {
-  background: white;
-  border-radius: 16px;
-  padding: 22px;
-  margin-bottom: 20px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-}
 
-.kart h2 {
-  margin-bottom: 8px;
-  font-size: 23px;
-}
-
-.kart > p {
-  color: #666;
-  margin-bottom: 15px;
-}
+/* FORM ALANLARI */
 
 select,
 textarea {
   width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 13px;
-  margin-bottom: 12px;
-  font-size: 16px;
-  background: white;
+  font-family: inherit;
+  font-size: 17px;
+  border: 1px solid #d5d5d5;
+  border-radius: 13px;
+  background: #fafafa;
+  padding: 15px;
+  margin-bottom: 13px;
+  outline: none;
+}
+
+select {
+  min-height: 55px;
 }
 
 textarea {
-  min-height: 110px;
+  min-height: 135px;
   resize: vertical;
 }
 
-select:focus,
-textarea:focus {
-  outline: 2px solid #ef9a9a;
-  border-color: #e53935;
+textarea:focus,
+select:focus {
+  border-color: #ef3438;
+  background: white;
 }
 
-.mahalleler {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 15px;
+.card button {
+  width: 100%;
 }
 
-.mahalleler div {
-  background: #f7f7f7;
-  padding: 14px;
-  border-radius: 10px;
-  font-weight: bold;
+
+/* SON PAYLAŞIMLAR */
+
+#akis {
+  margin-top: 18px;
 }
 
-.gonderi {
-  padding: 16px 0;
-  border-bottom: 1px solid #eee;
+.post {
+  background: #f7f8fa;
+  border: 1px solid #ececec;
+  border-left: 5px solid #ef3438;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 14px;
 }
 
-.gonderi:last-child {
-  border-bottom: none;
+.post strong {
+  display: block;
+  font-size: 17px;
+  margin-bottom: 8px;
 }
 
-.gonderi strong {
-  color: #e53935;
+.post p {
+  font-size: 17px;
+  margin-bottom: 10px;
+  overflow-wrap: anywhere;
 }
 
-.gonderi p {
-  margin-top: 6px;
+.post small {
+  color: #888;
+  font-size: 13px;
 }
+
+
+/* MAHALLELER */
+
+.mahalle {
+  background: #f6f7f8;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+
+/* ALT KISIM */
 
 footer {
   background: #202124;
   color: white;
   text-align: center;
-  padding: 28px 15px;
-  margin-top: 25px;
+  padding: 30px 20px;
+}
+
+footer strong {
+  font-size: 18px;
 }
 
 footer p {
-  color: #bbb;
-  margin-top: 5px;
+  margin-top: 8px;
+  color: #ccc;
 }
 
+
+/* TELEFON */
+
 @media (max-width: 600px) {
+
   header {
-    padding: 28px 15px;
+    padding: 30px 15px;
   }
 
   .logo {
-    font-size: 24px;
+    font-size: 25px;
   }
 
-  main {
-    padding: 12px;
+  header p {
+    font-size: 16px;
   }
 
-  .hero {
-    padding: 28px 16px;
-  }
-
-  .hero h1 {
-    font-size: 27px;
+  nav {
+    gap: 4px;
+    padding: 13px 5px;
   }
 
   nav a {
     font-size: 14px;
+    padding: 8px 6px;
   }
 
-  .mahalleler {
-    grid-template-columns: 1fr;
+  main {
+    padding: 18px 12px 40px;
+  }
+
+  .hero,
+  .card {
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  .hero {
+    padding-top: 35px;
+    padding-bottom: 35px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .hero p {
+    font-size: 17px;
+  }
+
+  .card h2 {
+    font-size: 26px;
+  }
+
+  select,
+  textarea {
+    font-size: 16px;
   }
 
   button,
-  .buton {
-    width: 100%;
-    text-align: center;
+  .btn {
+    font-size: 16px;
   }
 }
