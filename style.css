@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #1f2937;
+  line-height: 1.5;
+  padding-bottom: 90px;
+}
+
+header {
+  background: linear-gradient(135deg, #e30613, #a80009);
+  color: white;
+  padding: 28px 18px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,.15);
+}
+
+header h1 {
+  font-size: 30px;
+  margin-bottom: 7px;
+}
+
+header p {
+  font-size: 15px;
+  opacity: .95;
+}
+
+.container {
+  width: 94%;
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+select,
+textarea,
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: white;
+  font-size: 16px;
+  outline: none;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+select:focus,
+textarea:focus,
+input:focus {
+  border-color: #e30613;
+  box-shadow: 0 0 0 3px rgba(227,6,19,.10);
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin: 5px 3px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #e30613;
+  color: white;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.card,
+.post,
+.paylasim {
+  background: white;
+  margin: 15px 0;
+  padding: 17px;
+  border-radius: 16px;
+  box-shadow: 0 3px 14px rgba(0,0,0,.08);
+}
+
+h2,
+h3 {
+  margin: 12px 0;
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 18px 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  background: white;
+  padding: 10px 13px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+nav a:hover {
+  background: #e30613;
+  color: white;
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 5px;
+  box-shadow: 0 -3px 15px rgba(0,0,0,.10);
+  z-index: 100;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 25px;
+  }
+
+  .container {
+    width: 95%;
+  }
+
+  button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
