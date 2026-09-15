@@ -276,6 +276,27 @@ footer p {
   <strong>📍 Esenyurt Görüyor Soruyor</strong>
   <p>Gör • Sor • Paylaş</p>
 </footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+  const paylasButonu = document.querySelector("button");
+  const yaziKutusu = document.querySelector("textarea");
+
+  if (paylasButonu && yaziKutusu) {
+    paylasButonu.addEventListener("click", function () {
+      const yazi = yaziKutusu.value.trim();
+
+      if (yazi === "") {
+        alert("Önce bir şey yazmalısın.");
+        return;
+      }
+
+      alert("✅ Paylaşımın alındı!");
+      yaziKutusu.value = "";
+    });
+  }
+
+});
+</script>
 </body>
 </html>
