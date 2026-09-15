@@ -6,9 +6,7 @@
 <title>Esenyurt Görüyor Soruyor</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -18,7 +16,7 @@ body {
 }
 
 header {
-  background: linear-gradient(135deg, #ef3038, #ff6845);
+  background: linear-gradient(135deg,#ef3038,#ff6845);
   color: white;
   text-align: center;
   padding: 35px 20px;
@@ -26,12 +24,11 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 32px;
+  font-size: 30px;
 }
 
 header p {
   font-size: 18px;
-  opacity: .95;
 }
 
 nav {
@@ -40,15 +37,15 @@ nav {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 22px;
+  gap: 20px;
   box-shadow: 0 3px 12px rgba(0,0,0,.08);
 }
 
 nav a {
   text-decoration: none;
   color: #292929;
-  font-size: 18px;
   font-weight: bold;
+  font-size: 17px;
 }
 
 main {
@@ -59,55 +56,50 @@ main {
 
 .card {
   background: white;
-  padding: 28px;
-  border-radius: 25px;
+  padding: 25px;
+  border-radius: 24px;
   margin-bottom: 25px;
   box-shadow: 0 8px 25px rgba(0,0,0,.08);
 }
 
 .hero {
   text-align: center;
-  padding: 45px 25px;
+  padding: 40px 25px;
 }
 
 .hero h2 {
-  font-size: 34px;
-  margin-top: 0;
+  font-size: 32px;
 }
 
-.hero p {
-  font-size: 20px;
-  color: #666;
+p {
   line-height: 1.5;
-}
-
-h2 {
-  font-size: 28px;
 }
 
 select,
 textarea,
+input,
 button {
   width: 100%;
-  font-size: 17px;
-  border-radius: 14px;
-  padding: 16px;
-  margin-top: 12px;
+  font-size: 16px;
+  border-radius: 13px;
+  padding: 15px;
+  margin-top: 10px;
 }
 
 select,
-textarea {
+textarea,
+input {
   border: 1px solid #ccc;
   background: #fafafa;
 }
 
 textarea {
-  min-height: 120px;
+  min-height: 110px;
   resize: vertical;
 }
 
 button {
-  border: none;
+  border: 0;
   background: #ef3438;
   color: white;
   font-weight: bold;
@@ -120,19 +112,44 @@ button:active {
 
 .post {
   background: #f5f6f8;
-  border-radius: 15px;
-  padding: 16px;
-  margin-top: 15px;
+  padding: 18px;
+  border-radius: 16px;
+  margin-top: 18px;
   border-left: 5px solid #ef3438;
-}
-
-.post strong {
-  display: block;
-  margin-bottom: 8px;
 }
 
 .post small {
   color: #777;
+}
+
+.yorum-alani {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #ddd;
+}
+
+.yorum-form {
+  display: flex;
+  gap: 7px;
+}
+
+.yorum-form input {
+  margin: 0;
+  flex: 1;
+}
+
+.yorum-form button {
+  margin: 0;
+  width: auto;
+  padding: 10px 15px;
+}
+
+.yorum {
+  background: white;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 .mahalleler {
@@ -148,24 +165,18 @@ button:active {
 }
 
 footer {
-  text-align: center;
-  padding: 30px;
   background: #202124;
   color: white;
+  text-align: center;
+  padding: 30px;
 }
 
 @media(max-width:600px) {
-  header h1 {
-    font-size: 28px;
-  }
+  header h1 { font-size: 27px; }
 
-  .hero h2 {
-    font-size: 30px;
-  }
+  .hero h2 { font-size: 29px; }
 
-  .card {
-    padding: 22px;
-  }
+  .card { padding: 20px; }
 
   .mahalleler {
     grid-template-columns: 1fr;
@@ -192,17 +203,21 @@ footer {
 
 <section class="card hero" id="ana">
   <h2>Esenyurt'ta ne oluyor?</h2>
+
   <p>
     Gördüğünü paylaş, merak ettiğini sor.<br>
     Mahallenden haberdar ol.
   </p>
+
   <button onclick="document.getElementById('goruyor').scrollIntoView({behavior:'smooth'})">
     Paylaşım Yap
   </button>
 </section>
 
 <section class="card" id="goruyor">
+
   <h2>👁️ Görüyor</h2>
+
   <p>Esenyurt'ta gördüğün bir gelişmeyi paylaş.</p>
 
   <select id="mahalle">
@@ -215,30 +230,48 @@ footer {
     <option>Esenkent</option>
   </select>
 
-  <textarea id="paylasim"
-    placeholder="Ne gördün? Buraya yaz..."></textarea>
+  <textarea
+    id="paylasim"
+    placeholder="Ne gördün? Buraya yaz...">
+  </textarea>
 
-  <button onclick="paylas()">Anonim Paylaş</button>
+  <button onclick="paylas()">
+    Anonim Paylaş
+  </button>
+
 </section>
 
 <section class="card" id="soruyor">
+
   <h2>❓ Soruyor</h2>
+
   <p>Mahallen hakkında merak ettiğin bir şeyi sor.</p>
 
-  <textarea id="soru"
-    placeholder="Sorunu buraya yaz..."></textarea>
+  <textarea
+    id="soru"
+    placeholder="Sorunu buraya yaz...">
+  </textarea>
 
-  <button onclick="soruSor()">Soru Sor</button>
+  <button onclick="soruSor()">
+    Soru Sor
+  </button>
+
 </section>
 
 <section class="card">
+
   <h2>🔥 Son Paylaşımlar</h2>
+
   <div id="paylasimlar">
-    <p>Henüz paylaşım yok. İlk paylaşımı sen yap!</p>
+    <p id="bosMesaj">
+      Henüz paylaşım yok. İlk paylaşımı sen yap!
+    </p>
   </div>
+
 </section>
 
 <section class="card" id="mahalleler">
+
   <h2>🏙️ Mahalleler</h2>
 
   <div class="mahalleler">
@@ -249,27 +282,32 @@ footer {
     <div class="mahalle">📍 Bağlarçeşme</div>
     <div class="mahalle">📍 Esenkent</div>
   </div>
+
 </section>
 
 </main>
 
 <footer>
   <strong>📍 Esenyurt Görüyor Soruyor</strong>
-  <p>Gör • Sor • Paylaş</p>
+  <p>Gör • Sor • Paylaş • Yorum Yap</p>
 </footer>
 
 <script>
-function ekranaEkle(tur, mahalle, yazi) {
-  const alan = document.getElementById("paylasimlar");
 
-  if (alan.innerText.includes("Henüz paylaşım yok")) {
-    alan.innerHTML = "";
+function ekranaEkle(tur, mahalle, yazi) {
+
+  const alan = document.getElementById("paylasimlar");
+  const bos = document.getElementById("bosMesaj");
+
+  if (bos) {
+    bos.remove();
   }
 
   const post = document.createElement("div");
   post.className = "post";
 
   const baslik = document.createElement("strong");
+
   baslik.textContent =
     (tur === "Görüyor" ? "👁️ " : "❓ ") +
     tur + " • " + mahalle;
@@ -281,14 +319,71 @@ function ekranaEkle(tur, mahalle, yazi) {
   tarih.textContent =
     new Date().toLocaleString("tr-TR");
 
+  const yorumAlani = document.createElement("div");
+  yorumAlani.className = "yorum-alani";
+
+  const yorumBaslik = document.createElement("strong");
+  yorumBaslik.textContent = "💬 Yorumlar";
+
+  const yorumlar = document.createElement("div");
+
+  const form = document.createElement("div");
+  form.className = "yorum-form";
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.placeholder = "Yorum yaz...";
+
+  const buton = document.createElement("button");
+  buton.textContent = "Gönder";
+
+  buton.onclick = function() {
+
+    const yorumMetni = input.value.trim();
+
+    if (!yorumMetni) {
+      alert("Önce yorumunu yaz.");
+      return;
+    }
+
+    const yorum = document.createElement("div");
+    yorum.className = "yorum";
+
+    yorum.textContent =
+      "👤 Anonim: " + yorumMetni;
+
+    yorumlar.appendChild(yorum);
+
+    input.value = "";
+  };
+
+  input.addEventListener("keydown", function(e) {
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+      buton.click();
+    }
+
+  });
+
+  form.appendChild(input);
+  form.appendChild(buton);
+
+  yorumAlani.appendChild(yorumBaslik);
+  yorumAlani.appendChild(yorumlar);
+  yorumAlani.appendChild(form);
+
   post.appendChild(baslik);
   post.appendChild(metin);
   post.appendChild(tarih);
+  post.appendChild(yorumAlani);
 
   alan.prepend(post);
 }
 
+
 function paylas() {
+
   const mahalle =
     document.getElementById("mahalle").value;
 
@@ -307,13 +402,20 @@ function paylas() {
     return;
   }
 
-  ekranaEkle("Görüyor", mahalle, yazi);
+  ekranaEkle(
+    "Görüyor",
+    mahalle,
+    yazi
+  );
 
   kutu.value = "";
+
   alert("✅ Paylaşımın yayınlandı!");
 }
 
+
 function soruSor() {
+
   const kutu =
     document.getElementById("soru");
 
@@ -324,11 +426,17 @@ function soruSor() {
     return;
   }
 
-  ekranaEkle("Soruyor", "Esenyurt", yazi);
+  ekranaEkle(
+    "Soruyor",
+    "Esenyurt",
+    yazi
+  );
 
   kutu.value = "";
+
   alert("✅ Sorun yayınlandı!");
 }
+
 </script>
 
 </body>
