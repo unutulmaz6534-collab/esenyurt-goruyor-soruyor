@@ -1,99 +1,281 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Esenyurt Görüyor Soruyor</title>
-  <link rel="stylesheet" href="stil.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esenyurt Görüyor Soruyor</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f5f7;
+  color: #222;
+}
+
+header {
+  background: linear-gradient(135deg, #e53935, #ff7043);
+  color: white;
+  text-align: center;
+  padding: 35px 15px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+header p {
+  margin-top: 8px;
+  opacity: .9;
+}
+
+nav {
+  background: white;
+  padding: 12px 8px;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  padding: 9px;
+  border-radius: 8px;
+}
+
+main {
+  max-width: 800px;
+  margin: auto;
+  padding: 15px;
+}
+
+.hero {
+  background: white;
+  padding: 35px 20px;
+  border-radius: 18px;
+  text-align: center;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 15px rgba(0,0,0,.08);
+}
+
+.hero h1 {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: #666;
+  margin-bottom: 22px;
+}
+
+.btn, button {
+  background: #e53935;
+  color: white;
+  border: 0;
+  padding: 13px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.07);
+}
+
+.card h2 {
+  margin-bottom: 8px;
+}
+
+.card > p {
+  color: #666;
+  margin-bottom: 15px;
+}
+
+select, textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.mahalleler {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.mahalle {
+  background: #f5f5f5;
+  padding: 13px;
+  border-radius: 9px;
+  font-weight: bold;
+}
+
+.post {
+  border-bottom: 1px solid #eee;
+  padding: 14px 0;
+}
+
+.post:last-child {
+  border: 0;
+}
+
+.post strong {
+  color: #e53935;
+}
+
+.post p {
+  margin-top: 6px;
+}
+
+footer {
+  background: #202124;
+  color: white;
+  padding: 28px 15px;
+  text-align: center;
+}
+
+footer p {
+  margin-top: 6px;
+  color: #bbb;
+}
+
+@media(max-width:600px) {
+  .logo {
+    font-size: 23px;
+  }
+
+  .hero h1 {
+    font-size: 27px;
+  }
+
+  .mahalleler {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">📍 Esenyurt <span>Görüyor Soruyor</span></div>
+  <div class="logo">📍 ESENYURT GÖRÜYOR SORUYOR</div>
   <p>Esenyurt'un dijital mahalle platformu</p>
 </header>
 
 <nav>
   <a href="#anasayfa">🏠 Ana Sayfa</a>
-  <a href="#paylas">👁️ Görüyor</a>
+  <a href="#goruyor">👁️ Görüyor</a>
   <a href="#soruyor">❓ Soruyor</a>
   <a href="#mahalleler">🏙️ Mahalleler</a>
 </nav>
 
 <main id="anasayfa">
 
-  <section class="hero">
-    <h1>Esenyurt'ta ne oluyor?</h1>
-    <p>Gördüğünü paylaş, merak ettiğini sor. Mahallenden haberdar ol.</p>
-    <a class="buton" href="#paylas">Paylaşım Yap</a>
-  </section>
+<section class="hero">
+  <h1>Esenyurt'ta ne oluyor?</h1>
+  <p>Gördüğünü paylaş, merak ettiğini sor. Mahallenden haberdar ol.</p>
+  <a class="btn" href="#goruyor">Paylaşım Yap</a>
+</section>
 
-  <section id="paylas" class="kart">
-    <h2>👁️ Görüyor</h2>
-    <p>Esenyurt'ta gördüğün bir gelişmeyi paylaş.</p>
+<section class="card" id="goruyor">
+  <h2>👁️ Görüyor</h2>
+  <p>Esenyurt'ta gördüğün bir gelişmeyi paylaş.</p>
 
-    <select>
-      <option>Mahalle seç</option>
-      <option>Mehterçeşme</option>
-      <option>Saadetdere</option>
-      <option>İncirtepe</option>
-      <option>Talatpaşa</option>
-      <option>Bağlarçeşme</option>
-    </select>
+  <select>
+    <option>Mahalleni seç</option>
+    <option>Mehterçeşme</option>
+    <option>Saadetdere</option>
+    <option>İncirtepe</option>
+    <option>Talatpaşa</option>
+    <option>Bağlarçeşme</option>
+    <option>Esenkent</option>
+  </select>
 
-    <textarea placeholder="Ne gördün? Buraya yaz..."></textarea>
+  <textarea placeholder="Ne gördün? Buraya yaz..."></textarea>
 
-    <button onclick="paylas()">Anonim Paylaş</button>
-  </section>
+  <button onclick="alert('Paylaşımın alındı!')">
+    Anonim Paylaş
+  </button>
+</section>
 
-  <section id="soruyor" class="kart">
-    <h2>❓ Soruyor</h2>
-    <p>Mahallen hakkında merak ettiğin bir şeyi sor.</p>
+<section class="card" id="soruyor">
+  <h2>❓ Soruyor</h2>
+  <p>Mahallen hakkında merak ettiğin bir şeyi sor.</p>
 
-    <textarea placeholder="Sorunu buraya yaz..."></textarea>
-    <button onclick="alert('Sorun alındı!')">Soru Sor</button>
-  </section>
+  <textarea placeholder="Sorunu buraya yaz..."></textarea>
 
-  <section id="mahalleler" class="kart">
-    <h2>🏙️ Mahalleler</h2>
+  <button onclick="alert('Sorun alındı!')">
+    Soru Sor
+  </button>
+</section>
 
-    <div class="mahalleler">
-      <div>📍 Mehterçeşme</div>
-      <div>📍 Saadetdere</div>
-      <div>📍 İncirtepe</div>
-      <div>📍 Talatpaşa</div>
-      <div>📍 Bağlarçeşme</div>
-      <div>📍 Esenkent</div>
-    </div>
-  </section>
+<section class="card" id="mahalleler">
+  <h2>🏙️ Mahalleler</h2>
 
-  <section class="kart">
-    <h2>🔥 Gündem</h2>
+  <div class="mahalleler">
+    <div class="mahalle">📍 Mehterçeşme</div>
+    <div class="mahalle">📍 Saadetdere</div>
+    <div class="mahalle">📍 İncirtepe</div>
+    <div class="mahalle">📍 Talatpaşa</div>
+    <div class="mahalle">📍 Bağlarçeşme</div>
+    <div class="mahalle">📍 Esenkent</div>
+  </div>
+</section>
 
-    <div class="gonderi">
-      <strong>👁️ Görüyor • Esenyurt</strong>
-      <p>Esenyurt'ta gördüklerini burada paylaşabilirsin.</p>
-    </div>
+<section class="card">
+  <h2>🔥 Esenyurt Gündemi</h2>
 
-    <div class="gonderi">
-      <strong>❓ Soruyor • Esenyurt</strong>
-      <p>Mahallendeki konular hakkında soru sorabilirsin.</p>
-    </div>
-  </section>
+  <div class="post">
+    <strong>👁️ Görüyor • Esenyurt</strong>
+    <p>Mahallende gördüğün gelişmeleri burada paylaşabilirsin.</p>
+  </div>
+
+  <div class="post">
+    <strong>❓ Soruyor • Esenyurt</strong>
+    <p>Merak ettiğin konuları Esenyurtlulara sorabilirsin.</p>
+  </div>
+</section>
 
 </main>
 
 <footer>
   <strong>📍 Esenyurt Görüyor Soruyor</strong>
-  <p>Mahallenden haberdar ol.</p>
+  <p>Gör • Sor • Paylaş</p>
 </footer>
-
-<script>
-function paylas() {
-  alert("Paylaşımın alındı!");
-}
-</script>
 
 </body>
 </html>
