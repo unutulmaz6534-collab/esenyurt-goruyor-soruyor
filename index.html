@@ -110,6 +110,11 @@ button:active {
   transform: scale(.98);
 }
 
+button:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
 .post {
   background: #f5f6f8;
   padding: 18px;
@@ -122,34 +127,13 @@ button:active {
   color: #777;
 }
 
-.yorum-alani {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid #ddd;
+.durum {
+  text-align: center;
+  color: #777;
 }
 
-.yorum-form {
-  display: flex;
-  gap: 7px;
-}
-
-.yorum-form input {
-  margin: 0;
-  flex: 1;
-}
-
-.yorum-form button {
-  margin: 0;
-  width: auto;
-  padding: 10px 15px;
-}
-
-.yorum {
-  background: white;
-  padding: 10px 12px;
-  margin-top: 8px;
-  border-radius: 10px;
-  font-size: 14px;
+.hata {
+  color: #c62828;
 }
 
 .mahalleler {
@@ -173,9 +157,7 @@ footer {
 
 @media(max-width:600px) {
   header h1 { font-size: 27px; }
-
   .hero h2 { font-size: 29px; }
-
   .card { padding: 20px; }
 
   .mahalleler {
@@ -209,13 +191,12 @@ footer {
     Mahallenden haberdar ol.
   </p>
 
-  <button onclick="document.getElementById('goruyor').scrollIntoView({behavior:'smooth'})">
+  <button id="paylasimaGit">
     Paylaşım Yap
   </button>
 </section>
 
 <section class="card" id="goruyor">
-
   <h2>👁️ Görüyor</h2>
 
   <p>Esenyurt'ta gördüğün bir gelişmeyi paylaş.</p>
@@ -232,46 +213,40 @@ footer {
 
   <textarea
     id="paylasim"
-    placeholder="Ne gördün? Buraya yaz...">
-  </textarea>
+    placeholder="Ne gördün? Buraya yaz..."
+  ></textarea>
 
-  <button onclick="paylas()">
+  <button id="paylasBtn">
     Anonim Paylaş
   </button>
-
 </section>
 
 <section class="card" id="soruyor">
-
   <h2>❓ Soruyor</h2>
 
   <p>Mahallen hakkında merak ettiğin bir şeyi sor.</p>
 
   <textarea
     id="soru"
-    placeholder="Sorunu buraya yaz...">
-  </textarea>
+    placeholder="Sorunu buraya yaz..."
+  ></textarea>
 
-  <button onclick="soruSor()">
+  <button id="soruBtn">
     Soru Sor
   </button>
-
 </section>
 
 <section class="card">
-
   <h2>🔥 Son Paylaşımlar</h2>
 
   <div id="paylasimlar">
-    <p id="bosMesaj">
-      Henüz paylaşım yok. İlk paylaşımı sen yap!
+    <p class="durum" id="durumMesaji">
+      Paylaşımlar yükleniyor...
     </p>
   </div>
-
 </section>
 
 <section class="card" id="mahalleler">
-
   <h2>🏙️ Mahalleler</h2>
 
   <div class="mahalleler">
@@ -282,107 +257,70 @@ footer {
     <div class="mahalle">📍 Bağlarçeşme</div>
     <div class="mahalle">📍 Esenkent</div>
   </div>
-
 </section>
 
 </main>
 
 <footer>
   <strong>📍 Esenyurt Görüyor Soruyor</strong>
-  <p>Gör • Sor • Paylaş • Yorum Yap</p>
+  <p>Gör • Sor • Paylaş</p>
 </footer>
 
-<script>
+<script type="module">
 
-function ekranaEkle(tur, mahalle, yazi) {
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-  const alan = document.getElementById("paylasimlar");
-  const bos = document.getElementById("bosMesaj");
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-  if (bos) {
-    bos.remove();
-  }
 
-  const post = document.createElement("div");
-  post.className = "post";
+const firebaseConfig = {
+  apiKey: "AIzaSyDJOMkN2Ub4CFJHB0oQoJqFxlFdBltjNY0",
+  authDomain: "esenyurt-goruyor-soruyor.firebaseapp.com",
+  projectId: "esenyurt-goruyor-soruyor",
+  storageBucket: "esenyurt-goruyor-soruyor.firebasestorage.app",
+  messagingSenderId: "68836328113",
+  appId: "1:68836328113:web:d6ceb45c71907fdf8e1890",
+  measurementId: "G-N702YRBZH3"
+};
 
-  const baslik = document.createElement("strong");
 
-  baslik.textContent =
-    (tur === "Görüyor" ? "👁️ " : "❓ ") +
-    tur + " • " + mahalle;
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-  const metin = document.createElement("p");
-  metin.textContent = yazi;
+const paylasimlarAlani =
+  document.getElementById("paylasimlar");
 
-  const tarih = document.createElement("small");
-  tarih.textContent =
-    new Date().toLocaleString("tr-TR");
+const paylasBtn =
+  document.getElementById("paylasBtn");
 
-  const yorumAlani = document.createElement("div");
-  yorumAlani.className = "yorum-alani";
+const soruBtn =
+  document.getElementById("soruBtn");
 
-  const yorumBaslik = document.createElement("strong");
-  yorumBaslik.textContent = "💬 Yorumlar";
 
-  const yorumlar = document.createElement("div");
+document
+  .getElementById("paylasimaGit")
+  .addEventListener("click", () => {
 
-  const form = document.createElement("div");
-  form.className = "yorum-form";
-
-  const input = document.createElement("input");
-  input.type = "text";
-  input.placeholder = "Yorum yaz...";
-
-  const buton = document.createElement("button");
-  buton.textContent = "Gönder";
-
-  buton.onclick = function() {
-
-    const yorumMetni = input.value.trim();
-
-    if (!yorumMetni) {
-      alert("Önce yorumunu yaz.");
-      return;
-    }
-
-    const yorum = document.createElement("div");
-    yorum.className = "yorum";
-
-    yorum.textContent =
-      "👤 Anonim: " + yorumMetni;
-
-    yorumlar.appendChild(yorum);
-
-    input.value = "";
-  };
-
-  input.addEventListener("keydown", function(e) {
-
-    if (e.key === "Enter") {
-      e.preventDefault();
-      buton.click();
-    }
+    document
+      .getElementById("goruyor")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
 
   });
 
-  form.appendChild(input);
-  form.appendChild(buton);
 
-  yorumAlani.appendChild(yorumBaslik);
-  yorumAlani.appendChild(yorumlar);
-  yorumAlani.appendChild(form);
-
-  post.appendChild(baslik);
-  post.appendChild(metin);
-  post.appendChild(tarih);
-  post.appendChild(yorumAlani);
-
-  alan.prepend(post);
-}
-
-
-function paylas() {
+paylasBtn.addEventListener("click", async () => {
 
   const mahalle =
     document.getElementById("mahalle").value;
@@ -390,7 +328,8 @@ function paylas() {
   const kutu =
     document.getElementById("paylasim");
 
-  const yazi = kutu.value.trim();
+  const yazi =
+    kutu.value.trim();
 
   if (!mahalle) {
     alert("Önce mahalleni seç.");
@@ -402,75 +341,208 @@ function paylas() {
     return;
   }
 
-  ekranaEkle(
-    "Görüyor",
-    mahalle,
-    yazi
-  );
+  try {
 
-  kutu.value = "";
+    paylasBtn.disabled = true;
+    paylasBtn.textContent = "Yayınlanıyor...";
 
-  alert("✅ Paylaşımın yayınlandı!");
-}
+    await addDoc(
+      collection(db, "paylasimlar"),
+      {
+        tur: "Görüyor",
+        mahalle: mahalle,
+        yazi: yazi,
+        tarih: serverTimestamp()
+      }
+    );
+
+    kutu.value = "";
+
+    alert("✅ Paylaşımın yayınlandı!");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Paylaşım kaydedilemedi. Firebase bağlantısını kontrol et."
+    );
+
+  } finally {
+
+    paylasBtn.disabled = false;
+    paylasBtn.textContent = "Anonim Paylaş";
+
+  }
+
+});
 
 
-function soruSor() {
+soruBtn.addEventListener("click", async () => {
 
   const kutu =
     document.getElementById("soru");
 
-  const yazi = kutu.value.trim();
+  const yazi =
+    kutu.value.trim();
 
   if (!yazi) {
     alert("Önce sorunu yaz.");
     return;
   }
 
-  ekranaEkle(
-    "Soruyor",
-    "Esenyurt",
-    yazi
-  );
+  try {
 
-  kutu.value = "";
+    soruBtn.disabled = true;
+    soruBtn.textContent = "Yayınlanıyor...";
 
-  alert("✅ Sorun yayınlandı!");
+    await addDoc(
+      collection(db, "paylasimlar"),
+      {
+        tur: "Soruyor",
+        mahalle: "Esenyurt",
+        yazi: yazi,
+        tarih: serverTimestamp()
+      }
+    );
+
+    kutu.value = "";
+
+    alert("✅ Sorun yayınlandı!");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Soru kaydedilemedi. Firebase bağlantısını kontrol et."
+    );
+
+  } finally {
+
+    soruBtn.disabled = false;
+    soruBtn.textContent = "Soru Sor";
+
+  }
+
+});
+
+
+function postOlustur(veri) {
+
+  const post =
+    document.createElement("div");
+
+  post.className = "post";
+
+
+  const baslik =
+    document.createElement("strong");
+
+  baslik.textContent =
+    (veri.tur === "Görüyor" ? "👁️ " : "❓ ") +
+    (veri.tur || "Paylaşım") +
+    " • " +
+    (veri.mahalle || "Esenyurt");
+
+
+  const metin =
+    document.createElement("p");
+
+  metin.textContent =
+    veri.yazi || "";
+
+
+  const tarih =
+    document.createElement("small");
+
+  if (
+    veri.tarih &&
+    typeof veri.tarih.toDate === "function"
+  ) {
+
+    tarih.textContent =
+      veri.tarih
+        .toDate()
+        .toLocaleString("tr-TR");
+
+  } else {
+
+    tarih.textContent = "Az önce";
+
+  }
+
+
+  post.appendChild(baslik);
+  post.appendChild(metin);
+  post.appendChild(tarih);
+
+  return post;
 }
 
+
+const paylasimSorgusu =
+  query(
+    collection(db, "paylasimlar"),
+    orderBy("tarih", "desc")
+  );
+
+
+onSnapshot(
+  paylasimSorgusu,
+
+  (snapshot) => {
+
+    paylasimlarAlani.innerHTML = "";
+
+    if (snapshot.empty) {
+
+      const mesaj =
+        document.createElement("p");
+
+      mesaj.className = "durum";
+
+      mesaj.textContent =
+        "Henüz paylaşım yok. İlk paylaşımı sen yap!";
+
+      paylasimlarAlani.appendChild(mesaj);
+
+      return;
+    }
+
+
+    snapshot.forEach((doc) => {
+
+      const veri = doc.data();
+
+      paylasimlarAlani.appendChild(
+        postOlustur(veri)
+      );
+
+    });
+
+  },
+
+  (error) => {
+
+    console.error(error);
+
+    paylasimlarAlani.innerHTML = "";
+
+    const mesaj =
+      document.createElement("p");
+
+    mesaj.className = "durum hata";
+
+    mesaj.textContent =
+      "Paylaşımlar yüklenemedi.";
+
+    paylasimlarAlani.appendChild(mesaj);
+
+  }
+);
+
 </script>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import {
-  getFirestore,
-  collection,
-  addDoc,
-  onSnapshot,
-  query,
-  orderBy,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDJOMkN2Ub4CFJHB0oQoJqFxlFdBltjNY0",
-    authDomain: "esenyurt-goruyor-soruyor.firebaseapp.com",
-    projectId: "esenyurt-goruyor-soruyor",
-    storageBucket: "esenyurt-goruyor-soruyor.firebasestorage.app",
-    messagingSenderId: "68836328113",
-    appId: "1:68836328113:web:d6ceb45c71907fdf8e1890",
-    measurementId: "G-N702YRBZH3"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-
-const analytics = getAnalytics(app);
-const db = getFirestore(app);
-</script>
 </body>
 </html>
